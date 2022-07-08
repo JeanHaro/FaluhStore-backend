@@ -5,11 +5,12 @@
 const { Router } = require('express');
 
 // Controladores
-const { getCategorias } = require('../controllers/categorias');
+const { getCategorias, crearCategorias } = require('../controllers/categorias');
 
 const router = Router();
 
 // Categorias
 router.get('/', getCategorias);
+router.post('/', crearCategorias);
 
 module.exports = router;

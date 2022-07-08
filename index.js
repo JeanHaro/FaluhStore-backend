@@ -15,6 +15,8 @@ const app = express();
 
 app.use(cors());
 
+app.use(express.json());
+
 // Conectar a la BD
 dbConnection();
 
