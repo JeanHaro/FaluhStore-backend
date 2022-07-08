@@ -8,7 +8,7 @@ const dbConnection = async () => {
         // Conectar a la BD
         await mongoose.connect(process.env.DB_CONNECT);
 
-        console.log('DB Online');
+        console.log('Conexión a la BD con éxito');
     } catch (error) {
         console.log(error);
         
