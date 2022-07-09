@@ -2,10 +2,13 @@
 const Usuario = require('../models/usuario');
 
 // Obtener Usuarios
-const getUsuarios = (request, response) => {
+const getUsuarios = async (request, response) => {
+    // Obtener todos los usuarios
+    const usuarios = await Usuario.find({}, 'nombre apellido email dni telefono telefono2 direccion genero role google');
+
     response.json({
         ok: true,
-        msg: 'Get Usuarios'
+        usuarios
     })
 }
 
