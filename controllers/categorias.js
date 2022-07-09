@@ -1,9 +1,6 @@
 // Modelos
 const Categorias = require('../models/categorias');
 
-// Resultados de la validación
-const { validationResult } = require('express-validator');
-
 const getCategorias = async (request, response) => {
     // Obtener todas las categorias
     const categorias = await Categorias.find();
@@ -31,7 +28,24 @@ const crearCategorias = async (request, response) => {
     })
 }
 
+const actualizarCategoria = async (request, response) => {
+    try {
+        response.json({
+            ok: true,
+            uid
+        })
+    } catch (error) {
+        console.log(error);
+
+        response.status(500).json({
+            ok: false,
+            msg: 'Error inesperado'
+        })
+    }
+}
+
 module.exports = {
     getCategorias,
-    crearCategorias
+    crearCategorias,
+    actualizarCategoria
 }
