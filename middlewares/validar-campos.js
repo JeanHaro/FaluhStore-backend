@@ -1,7 +1,9 @@
+// Validación
 const { validationResult } = require('express-validator');
 
 // Validar cada campo
 const validarCampos = (request, response, next) => {
+    // Obtener los errores encontrados
     const errores = validationResult(request);
 
     // Si hay errores

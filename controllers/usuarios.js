@@ -1,6 +1,3 @@
-// Validación
-const { validationResult } = require('express-validator');
-
 // Modelo
 const Usuario = require('../models/usuario');
 
@@ -22,18 +19,6 @@ const crearUsuario = async (request, response) => {
     // Valores
     const { nombre, apellido, email, password } = request.body;
 
-    // Obtener los errores encontrados
-    const errores = validationResult(request);
-
-    // Si hay errores
-    if (!errores.isEmpty()) {
-        return response.status(400).json({
-            ok: false,
-            errors: errores.mapped()
-        })
-    }
-
-    // Verificar si el usuario existe
     try {
         const existeEmail = await Usuario.findOne({ email });
 
