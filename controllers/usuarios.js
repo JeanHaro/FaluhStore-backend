@@ -1,3 +1,6 @@
+// bcrypt
+const bcrypt = require('bcryptjs');
+
 // Modelo
 const Usuario = require('../models/usuario');
 
@@ -32,6 +35,10 @@ const crearUsuario = async (request, response) => {
 
         // Instanciando el modelo
         const usuario = new Usuario(request.body);
+
+        // Encriptar contraseña
+        const salt = bcrypt.genSaltSync(); // numero de manera aleatoria
+        usuario.password = bcrypt.hashSync(password, salt);
 
         // Guardamos en la Base de datos
         await usuario.save();
