@@ -73,17 +73,16 @@ const actualizarUsuario = async (request, response) => {
             })
         }
 
-        const campos = request.body;
+        // password, google no se va a actualizar
+        const { password, google, email, ...campos }= request.body;
 
         // Si el email es el mismo
-        if (usuarioDB.email === request.body.email) {
-            delete campos.email;
-        } else {
-            // Si el email ya está registrado
+        if (usuarioDB.email !== email) {
             const existeEmail = await Usuario.findOne({
                 email: request.body.email
             })
 
+            // Si ya existe el email
             if (existeEmail) {
                 return response.status(400).json({
                     ok: false,
@@ -92,8 +91,7 @@ const actualizarUsuario = async (request, response) => {
             }
         }
 
-        delete campos.password;
-        delete campos.google;
+        campos.email = email;
 
         const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
 
