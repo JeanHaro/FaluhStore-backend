@@ -1,4 +1,4 @@
-const { Schema, Model } = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 // Estructura del Usuario
 const UsuarioSchema = Schema({
@@ -46,5 +46,11 @@ const UsuarioSchema = Schema({
     google: {
         type: Boolean,
         default: false
+    },
+    pedidos: {
+        type: Schema.Types.ObjectId,
+        ref: 'Pedidos'
     }
 })
+
+module.exports = model('Usuario', UsuarioSchema);

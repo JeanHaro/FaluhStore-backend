@@ -25,3 +25,5 @@ const PedidoSchema = Schema({
         require: true
     }
 })
+
+module.exports = model('Pedido', PedidoSchema)

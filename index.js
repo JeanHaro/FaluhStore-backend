@@ -24,6 +24,7 @@ dbConnection();
 
 // Rutas
 app.use('/api/categorias', require('./routes/categorias'));
+app.use('/api/usuarios', require('./routes/usuarios'));
 
 // Establecemos la conexión al servidor
 app.listen(process.env.PORT, () => {

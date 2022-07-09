@@ -11,6 +11,7 @@ const getCategorias = async (request, response) => {
     })
 }
 
+// Crear Categoría
 const crearCategorias = async (request, response) => {
     // console.log(request.body); // { nombre: 'Sandalias' }
 
@@ -28,6 +29,7 @@ const crearCategorias = async (request, response) => {
     })
 }
 
+// Actualizar Categoría
 const actualizarCategoria = async (request, response) => {
     try {
         response.json({
