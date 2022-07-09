@@ -4,7 +4,7 @@
 
 const { Router } = require('express');
 
-// Validación de express 
+// Validación
 const { check } = require('express-validator');
 
 // Middlewares
