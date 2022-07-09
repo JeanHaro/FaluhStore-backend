@@ -108,8 +108,40 @@ const actualizarUsuario = async (request, response) => {
     }
 }
 
+// Eliminar usuario
+const borrarUsuario = async (request, response) => {
+    const uid = request.params.id;
+
+    try {
+        // Buscar el usuario por el id
+        const usuarioDB = await Usuario.findById(uid);
+
+        // Si no encuentra al usuario
+        if (!usuarioDB) {
+            return response.status(404).json({
+                ok: false,
+                msg: 'No existe un usuario por ese id'
+            })
+        }
+
+        await Usuario.findByIdAndDelete(uid);
+
+        response.json({
+            ok: true,
+            msg: 'Usuario eliminado'
+        })
+    } catch (error) {
+        console.log(error);
+        response.status(500).json({
+            ok: false,
+            msg: 'Hable con el administrador'
+        })
+    }
+}
+
 module.exports = {
     getUsuarios,
     crearUsuario,
-    actualizarUsuario
+    actualizarUsuario,
+    borrarUsuario
 }

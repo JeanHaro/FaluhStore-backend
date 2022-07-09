@@ -14,7 +14,8 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const { 
     getUsuarios, 
     crearUsuario,
-    actualizarUsuario
+    actualizarUsuario,
+    borrarUsuario
 } = require('../controllers/usuarios');
 
 const router = Router();
@@ -39,5 +40,8 @@ router.put('/:id', [
     check('email', 'El email es obligatorio').isEmail(),
     check('role', 'El role es obligatorio').not().isEmpty()
 ], actualizarUsuario)
+
+// DELETE
+router.delete('/:id', borrarUsuario);
 
 module.exports = router;
