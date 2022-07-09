@@ -29,7 +29,7 @@ const crearCategorias = async (request, response) => {
     })
 }
 
-// Actualizar Categoría
+// Actualizar
 const actualizarCategoria = async (request, response) => {
     try {
         response.json({

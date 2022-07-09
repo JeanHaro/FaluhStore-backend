@@ -56,7 +56,62 @@ const crearUsuario = async (request, response) => {
     }
 }
 
+// Actualizar usuario
+const actualizarUsuario = async (request, response) => {
+    // Obtenemos el id
+    const uid = request.params.id;
+
+    try {
+        // Buscar el usuario por el id
+        const usuarioDB = await Usuario.findById(uid);
+
+        // Si no encuentra al usuario
+        if (!usuarioDB) {
+            return response.status(404).json({
+                ok: false,
+                msg: 'No existe un usuario por ese id'
+            })
+        }
+
+        const campos = request.body;
+
+        // Si el email es el mismo
+        if (usuarioDB.email === request.body.email) {
+            delete campos.email;
+        } else {
+            // Si el email ya está registrado
+            const existeEmail = await Usuario.findOne({
+                email: request.body.email
+            })
+
+            if (existeEmail) {
+                return response.status(400).json({
+                    ok: false,
+                    msg: "Ya existe un usuario con ese email"
+                })
+            }
+        }
+
+        delete campos.password;
+        delete campos.google;
+
+        const usuarioActualizado = await Usuario.findByIdAndUpdate(uid, campos, { new: true });
+
+        response.json({
+            ok: true,
+            usuario: usuarioActualizado
+        })
+    } catch (error) {
+        console.log(error);
+        response.status(500).json({
+            ok: false,
+            msg: 'Error inesperado'
+        })
+    }
+}
+
 module.exports = {
     getUsuarios,
-    crearUsuario
+    crearUsuario,
+    actualizarUsuario
 }
