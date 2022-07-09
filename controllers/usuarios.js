@@ -19,16 +19,35 @@ const crearUsuario = async (request, response) => {
     // Valores
     const { nombre, apellido, email, password } = request.body;
 
-    // Instanciando el modelo
-    const usuario = new Usuario(request.body);
+    // Verificar si el usuario existe
+    try {
+        const existeEmail = await Usuario.findOne({ email });
 
-    // Guardamos en la Base de datos
-    await usuario.save();
+        // Si ya existe el email
+        if (existeEmail) {
+            return response.status(400).json({
+                ok: false,
+                msg: 'El correo ya está registrado'
+            })
+        }
 
-    response.json({
-        ok: true,
-        usuario
-    })
+        // Instanciando el modelo
+        const usuario = new Usuario(request.body);
+
+        // Guardamos en la Base de datos
+        await usuario.save();
+
+        response.json({
+            ok: true,
+            usuario
+        })
+    } catch (error) {
+        console.log(error);
+        response.status(500).json({
+            ok: false,
+            msg: 'Error inesperado...'
+        })
+    }
 }
 
 module.exports = {
