@@ -31,6 +31,8 @@ const crearCategorias = async (request, response) => {
 
 // Actualizar
 const actualizarCategoria = async (request, response) => {
+    const uid = request.params.id;
+
     try {
         response.json({
             ok: true,
